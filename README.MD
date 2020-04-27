@@ -1,0 +1,41 @@
+
+## HY / Fullstack MOOC / Bloglist frontend v2
+
+### Toiminnallisuus  
+
+ 
+
+### Luonti  
+
+Luotu kloonaamalla  
+git clone https://github.com/fullstack-hy2020/bloglist-frontend  
+
+Asennettu sovelluksen riippuvuudet  
+npm install  
+
+Poistettu kloonin repo ja luotu oma repo  
+git init  
+
+Asennettu Bootstrap  
+
+### GIT
+
+Tehtävät tallennettu omiin git -haaroihin  
+paikallisen haaran push remote haaraan esim  
+git push -u origin part4-22  
+
+### Käynnistys  
+Frontendin käynnistys  
+npm start  
+Lisäksi backend pitää olla käynnissä portissa 3001  
+npm run dev  
+
+### Edistyminen
+
+5.1: blogilistan frontend, step1  
+Login ja blogien esitys toiminnallisuus  
+
+5.2 blogilistan frontend, step2 - git branch part5-02  
+User/Token tallennus local storage. Logout tyhjentää local storage.  
+
+
