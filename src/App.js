@@ -7,6 +7,7 @@ import DisplayBlogs from './components/DisplayBlogs'
 import Login from './components/Login'
 import Notification from './components/Notification'
 import Logout from './components/Logout'
+import CreateNew from './components/CreateNewBlog'
 
 
 // Services
@@ -21,26 +22,38 @@ const App = () => {
   const [password, setPassword] = useState('') 
   const [user, setUser] = useState(null)
 
-  const [errorMessage, setErrorMessage] = useState('')
+  const [displayMessage, setDisplayMessage] = useState('')
+
+  // useState for create new blog
+  const [newTitle, setNewTitle] = useState('')
+  const [newAuthor, setNewAuthor] = useState('')
+  const [newUrl, setNewUrl] = useState('')
+  const [createNewBlogVisible, setCreateNewBlogVisible] = useState(false)
 
 
   // To fetch all blogs before login in not safe. All blogs are visible in
   // devTools/network - sheet 
-  useEffect(() => {
+/*   useEffect(() => {
     blogServices.getAll().then(blogs =>
       setBlogs( blogs )
     )  
-  }, [])
+  }, []) */
 
 
-  // useEffect to fetch user-data from browser localStorage if exist. Logout
-  // remove user data from local storage
+  // useEffect to fetch user-data from browser localStorage if exist. 
+  // Logout removes user data from local storage
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
+
+      // Set token to blogService-token variable for backend communication purpose
       blogServices.setToken(user.token)
+
+      blogServices.getAll()
+        .then(blogs => setBlogs( blogs )
+      )  
     } 
   }, [])
 
@@ -54,7 +67,6 @@ const App = () => {
       setUser(user)
       window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
 
-      // Save token to blogServices for createBlog service
       blogServices.setToken(user.token)
 
       //console.log('user', user)
@@ -62,10 +74,15 @@ const App = () => {
       // Username and password are cleared because they and token are saved to user.
       setUsername('')
       setPassword('')
+
+      // All blogs are fetched from backend after succesfull login
+      const initialBlogs = await blogServices.getAll()
+      setBlogs(initialBlogs)
+
     } catch {
-      setErrorMessage('Wrong password or username')
+      setDisplayMessage('Wrong password or username')
       setTimeout(() => {
-        setErrorMessage('')
+        setDisplayMessage('')
       }, 5000)
       setUsername('')
       setPassword('')
@@ -74,10 +91,61 @@ const App = () => {
 
   // Event handler for logout button
   const handleLogout = () => {
-    //console.log('logout clicked')
     window.localStorage.removeItem('loggedBlogAppUser')
     setUser(null)
   }
+
+
+
+// Event handler for creat new blog button
+// creates new blog to backend
+const handleCreateNew = async (event) => {
+  event.preventDefault()
+  const newBlog = {
+    "title" : newTitle, 
+    "author" : newAuthor, 
+    "url" :newUrl,
+    "likes" : 0
+  }
+  try {
+      const newBlg = await blogServices.createNew( newBlog )
+      setBlogs(blogs.concat(newBlg))
+      setDisplayMessage(`A new blog ${newTitle} by ${newAuthor} added`)
+      setTimeout(() => {
+        setDisplayMessage('')
+      }, 5000)
+      setNewTitle('')
+      setNewAuthor('')
+      setNewUrl('')
+  } catch {
+      console.log('handleCreateNew catch')
+  }
+}
+
+// Event handler for "cancel and close" new blog button
+const handleCancelNewBlog = (event) => {
+    event.preventDefault()
+    setNewTitle('')
+    setNewAuthor('')
+    setNewUrl('')
+    setCreateNewBlogVisible(false)
+}
+
+// Event handler for inputing blog title.
+const handleNewTitleInput = (event) => {
+    setNewTitle(event.target.value)  
+}
+
+// Event handler for inputing blog author.
+const handleNewAuthorInput = (event) => {
+    setNewAuthor(event.target.value)  
+}
+
+// Event handler for inputing blog url.
+const handleNewUrlInput = (event) => {
+    setNewUrl(event.target.value)  
+}
+
 
   return (
     <div>
@@ -96,13 +164,14 @@ const App = () => {
       </div>
       </header>
 
-      {/* To display error messages for 5sek. */}
-      <Notification message={errorMessage} />
+      {/* To display notification messages for 5sek. */}
+      <Notification message={displayMessage} />
 
 
       {/* Main content section - login, blogs */}
       {user === null ?
 
+        // Display login-form is user is not logged in
         <Login 
           handleLogin={handleLogin}
           username={username}
@@ -110,9 +179,26 @@ const App = () => {
           password={password}
           setPassword={setPassword}
           /> :
-        <DisplayBlogs 
-          blogs={blogs}
-          />
+        
+        // Display createNewBlog and allBlogs if user is logged in
+        <div>
+          <CreateNew 
+            handleCreateNew={handleCreateNew}
+            handleCancelNewBlog={handleCancelNewBlog}
+            newTitle={newTitle} 
+            handleNewTitleInput={handleNewTitleInput}
+            newAuthor={newAuthor} 
+            handleNewAuthorInput={handleNewAuthorInput}
+            newUrl={newUrl}
+            handleNewUrlInput={handleNewUrlInput}
+            createNewBlogVisible={createNewBlogVisible}
+            setCreateNewBlogVisible={setCreateNewBlogVisible}
+            />
+
+          <DisplayBlogs 
+            blogs={blogs}
+            />
+        </div>
       }
 
     </div>

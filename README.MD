@@ -38,4 +38,9 @@ Login ja blogien esitys toiminnallisuus
 5.2 blogilistan frontend, step2 - git branch part5-02  
 User/Token tallennus local storage. Logout tyhjentää local storage.  
 
+5.3: blogilistan frontend, step3  
+Kirjautunut käyttäjä voi lisätä uuden blogin  
+
+5.4*: blogilistan frontend, step4  - git branch part5-04  
+Notifikaatiot onnistuneista ja epäonnistuneista toimenpiteistä  
 
