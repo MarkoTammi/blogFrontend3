@@ -24,21 +24,13 @@ const App = () => {
 
   const [displayMessage, setDisplayMessage] = useState('')
 
-  // useState for create new blog
+   // useState for create new blog
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
   const [createNewBlogVisible, setCreateNewBlogVisible] = useState(false)
 
-
-  // To fetch all blogs before login in not safe. All blogs are visible in
-  // devTools/network - sheet 
-/*   useEffect(() => {
-    blogServices.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
-  }, []) */
-
+  const [viewBlogDetails, setViewBlogDetails] = useState(null)
 
   // useEffect to fetch user-data from browser localStorage if exist. 
   // Logout removes user data from local storage
@@ -69,11 +61,12 @@ const App = () => {
 
       blogServices.setToken(user.token)
 
-      //console.log('user', user)
-
-      // Username and password are cleared because they and token are saved to user.
+      // Username and password are cleared because they and token are saved to user object.
       setUsername('')
       setPassword('')
+
+      setCreateNewBlogVisible(false)
+      setViewBlogDetails(null)
 
       // All blogs are fetched from backend after succesfull login
       const initialBlogs = await blogServices.getAll()
@@ -95,8 +88,6 @@ const App = () => {
     setUser(null)
   }
 
-
-
 // Event handler for creat new blog button
 // creates new blog to backend
 const handleCreateNew = async (event) => {
@@ -108,8 +99,14 @@ const handleCreateNew = async (event) => {
     "likes" : 0
   }
   try {
-      const newBlg = await blogServices.createNew( newBlog )
-      setBlogs(blogs.concat(newBlg))
+
+      // const newBlg = await blogServices.createNew( newBlog )  
+      //setBlogs(blogs.concat(newBlg))
+
+      await blogServices.createNew( newBlog )
+      const initialBlogs = await blogServices.getAll()
+      setBlogs(initialBlogs)
+
       setDisplayMessage(`A new blog ${newTitle} by ${newAuthor} added`)
       setTimeout(() => {
         setDisplayMessage('')
@@ -146,6 +143,61 @@ const handleNewUrlInput = (event) => {
     setNewUrl(event.target.value)  
 }
 
+// Event handler for delete blog button
+const handleDelete = async (blog) => {
+
+  if (window.confirm(`Delete blog "${blog.title}" ?`)) {
+    try {
+      await blogServices.deleteBlog( blog.id )
+
+      // Update all blogs table
+      const initialBlogs = await blogServices.getAll()
+      setBlogs(initialBlogs)
+
+      // Display delete confirm message to user
+      setDisplayMessage(`Blog title "${blog.title}" removed`)
+      setTimeout(() => {
+        setDisplayMessage('')
+      }, 5000)
+    } catch{
+      console.log('handleDelete catch')
+    }
+  }
+}
+
+// Event handler for view blog details button
+const handleViewBlogDetails = (event) => {
+  setViewBlogDetails(event.id)
+
+}
+
+// Event handler for close blog details button
+const handleCloseBlogDetails = () => {
+  setViewBlogDetails(null)
+}
+
+// Event handler for like blog button
+const handleLikeBlog = async (event) => {
+  //event.preventDefault()
+  event.likes = event.likes + 1
+  const updateBlog = {
+    "title" : event.title, 
+    "author" : event.author, 
+    "url" : event.url,
+    "likes" : event.likes,
+    "user" : event.user.id,
+    "id" : event.id
+  }
+  try {
+    await blogServices.updateBlog( updateBlog )
+
+    const initialBlogs = await blogServices.getAll()
+    setBlogs(initialBlogs)
+  } catch {
+    console.log('handleLikeBlog catch')
+  }
+}
+
 
   return (
     <div>
@@ -171,7 +223,7 @@ const handleNewUrlInput = (event) => {
       {/* Main content section - login, blogs */}
       {user === null ?
 
-        // Display login-form is user is not logged in
+        // Display login-form if user is not logged in
         <Login 
           handleLogin={handleLogin}
           username={username}
@@ -197,6 +249,12 @@ const handleNewUrlInput = (event) => {
 
           <DisplayBlogs 
             blogs={blogs}
+            handleDelete={handleDelete}
+            user={user}
+            viewBlogDetails={viewBlogDetails}
+            handleViewBlogDetails={handleViewBlogDetails}
+            handleCloseBlogDetails={handleCloseBlogDetails}
+            handleLikeBlog={handleLikeBlog}
             />
         </div>
       }

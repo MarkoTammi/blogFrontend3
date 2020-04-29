@@ -2,10 +2,13 @@
 
 // Component to create new blog
 
-import React from 'react'
+import React, {} from 'react'
+
 
 const CreateNewBlog = (props) => {
+
     // to show createNewBlog form or not
+    // CSS property 'display' is none or ''
     const hideWhenVisible = { display : props.createNewBlogVisible ? 'none': '' }
     const showWhenVisible = { display : props.createNewBlogVisible ? '' : 'none' }
 

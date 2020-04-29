@@ -44,3 +44,22 @@ Kirjautunut käyttäjä voi lisätä uuden blogin
 5.4*: blogilistan frontend, step4  - git branch part5-04  
 Notifikaatiot onnistuneista ja epäonnistuneista toimenpiteistä  
 
+5.5 blogilistan frontend, step5  
+"Uusi blogi" on näkyvissä vain pyydettäessä  
+
+5.10
+Delete -toiminto vain blogin luoneelle käyttäjälle.  
+
+5.7* blogilistan frontend, step7  
+View -toiminto joka näyttää blogin lisätiedot  
+
+5.8*: blogilistan frontend, step8  
+Like -toiminto joka lisää blogille "tykkäyksiä".  
+
+5.9*: blogilistan frontend, step9  - git branch part5-10  
+Sorttaa blogin taulukon tykkäysten lukumäärän perusteella   
+
+
+
+
+

@@ -27,9 +27,27 @@ const createNew = async (newBlog) => {
   return response.data
 }
 
+// To delete blog from backend
+// Only user who created blog can delete it
+const deleteBlog = async (blogId) => {
+  //console.log('/services/blogs/deleteBlog', blogId)
+  const config = {
+    headers: { Authorization: token }
+  }
+  const response = await axios.delete(`${baseUrl}/${blogId}`, config)
+  return response.data
+}
+
+// To update blog from backend
+const updateBlog = async (updateBlog) => {
+  const response = await axios.put(`${baseUrl}/${updateBlog.id}`, updateBlog)
+  return response.data
+}
 
 export default { 
   getAll,
   setToken,
-  createNew 
+  createNew,
+  deleteBlog,
+  updateBlog
   }
