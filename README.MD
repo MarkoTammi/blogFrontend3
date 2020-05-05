@@ -1,8 +1,12 @@
 
-## HY / Fullstack MOOC / Bloglist frontend v2
+## HY / Fullstack MOOC / Bloglist frontend v3
 
 ### Toiminnallisuus  
 
+Blogi sovellus - React/Bootstrap, Node.js ja MongoDB 
+Login, blogin lisäys, näyttö jne  
+API authentication, Mongo integraatio
+Testaus JETS ja Cypress
  
 
 ### Luonti  
@@ -58,6 +62,34 @@ Like -toiminto joka lisää blogille "tykkäyksiä".
 
 5.9*: blogilistan frontend, step9  - git branch part5-10  
 Sorttaa blogin taulukon tykkäysten lukumäärän perusteella   
+
+5.13: blogilistan testit, step1  
+Asennettu react-testing-library ja jest-dom  
+npm install --save-dev @testing-library/react @testing-library/jest-dom  
+Testi, joka varmistaa että blogin näyttävä komponentti renderöi blogin titlen,  
+authorin mutta ei renderöi oletusarvoisesti urlia eikä likejen määrää.  
+Ei tehty testejä - blogFront poikkeaa paljon esimerkeistä.   
+
+5.17: blogilistan end to end -testit, step1  
+Asennettu Cybress kirjasto  
+npm install --save-dev cypress  
+
+Testien käynnistys:  
+backend käynnistys - npm run start:test  
+frontend käynnistys - npm start   
+testi scriptin käynnistys - npm run cypress:open  
+testit tallennetaan /cypress/integration
+
+Testi, joka varmistaa, että sovellus näyttää oletusarvoisesti kirjautumislomakkeen.  
+
+5.18: blogilistan end to end -testit, step2  
+Testit kirjautumiselle, testaa sekä onnistunut että epäonnistunut kirjautuminen.  
+
+Asennettu Eslint laajennus - poistaa eslint herjat "cy."  
+npm install eslint-plugin-cypress --save-dev  
+
+5.19: blogilistan end to end -testit, step3  - git branch part5-19  
+Testi, joka varmistaa, että kirjaantunut käyttäjä pystyy luomaan blogin.  
 
 
 

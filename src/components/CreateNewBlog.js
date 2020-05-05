@@ -20,11 +20,11 @@ const CreateNewBlog = (props) => {
             <div style={showWhenVisible}>
                 <h6 className="mt-4">Create new blog</h6>
                 <form className="form-group" onSubmit={props.handleCreateNew}>
-                    <input className="form-control" placeholder="Title" value={props.newTitle} onChange={props.handleNewTitleInput}/>
-                    <input className="form-control" placeholder="Author" value={props.newAuthor} onChange={props.handleNewAuthorInput}/>
-                    <input className="form-control" placeholder="Url" value={props.newUrl} onChange={props.handleNewUrlInput}/>
+                    <input id="blogTitle" className="form-control" placeholder="Title" value={props.newTitle} onChange={props.handleNewTitleInput}/>
+                    <input id="blogAuthor" className="form-control" placeholder="Author" value={props.newAuthor} onChange={props.handleNewAuthorInput}/>
+                    <input id="blogUrl" className="form-control" placeholder="Url" value={props.newUrl} onChange={props.handleNewUrlInput}/>
                     <div className="mt-2"> 
-                        <button className="btn btn-primary btn-sm" type="submit">Create</button>
+                        <button id="createButton" className="btn btn-primary btn-sm" type="submit">Create</button>
                         <button className="btn btn-outline-secondary btn-sm ml-2" onClick={props.handleCancelNewBlog}>Cancel and close form</button> 
                     </div>
                 </form>

@@ -26,7 +26,7 @@ const Login = (props) => (
                     onChange={ ( { target } ) => props.setPassword(target.value) }
                 />
             </div>
-            <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            <button id="login-button" className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         </form>
     </div>
 )

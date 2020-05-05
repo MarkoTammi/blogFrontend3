@@ -31,7 +31,7 @@ const DisplayBlogs = (props) => {
             <td>{blog.url}</td>
             <td>{blog.likes}</td>
 
-            {/* Display blog details is "view" button is pressed. */}
+            {/* Display blog details if "view" button is pressed. */}
             {blog.id === props.viewBlogDetails ?
               <td> 
                 <div className="ml-1">Added by : {blog.user.username}</div> 
