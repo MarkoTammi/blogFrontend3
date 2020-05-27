@@ -1,6 +1,8 @@
 
 
 import React, { useState, useEffect } from 'react'
+import { useDispatch} from 'react-redux'
+import { timeoutId } from './global'
 
 // Components
 import DisplayBlogs from './components/DisplayBlogs'
@@ -14,15 +16,21 @@ import CreateNew from './components/CreateNewBlog'
 import loginServices from './services/login'
 import blogServices from './services/blogs'
 
+// Reducers
+import { setClearNotification} from './reducers/notificationReducer'
+
 
 const App = () => {
+
+  const dispatch = useDispatch()
+
   const [blogs, setBlogs] = useState([])
 
   const [username, setUsername] = useState('')   
   const [password, setPassword] = useState('') 
   const [user, setUser] = useState(null)
 
-  const [displayMessage, setDisplayMessage] = useState('')
+  //const [displayMessage, setDisplayMessage] = useState('')
 
    // useState for create new blog
   const [newTitle, setNewTitle] = useState('')
@@ -73,10 +81,15 @@ const App = () => {
       setBlogs(initialBlogs)
 
     } catch {
-      setDisplayMessage('Wrong password or username')
+      // Display login failed message
+      const msgToDisplay = 'Wrong password or username'
+      // content to display, time in sec to display
+      dispatch(setClearNotification(msgToDisplay, 5, timeoutId))
+
+/*       setDisplayMessage('Wrong password or username')
       setTimeout(() => {
         setDisplayMessage('')
-      }, 5000)
+      }, 5000) */
       setUsername('')
       setPassword('')
     }
@@ -107,10 +120,15 @@ const handleCreateNew = async (event) => {
       const initialBlogs = await blogServices.getAll()
       setBlogs(initialBlogs)
 
-      setDisplayMessage(`A new blog ${newTitle} by ${newAuthor} added`)
+      // Display name of created anecdote in notification field
+      const msgToDisplay = `A new blog ${newTitle} by ${newAuthor} added`
+      // content to display, time in sec to display
+      dispatch(setClearNotification(msgToDisplay, 5, timeoutId))
+
+/*       setDisplayMessage(`A new blog ${newTitle} by ${newAuthor} added`)
       setTimeout(() => {
         setDisplayMessage('')
-      }, 5000)
+      }, 5000) */
       setNewTitle('')
       setNewAuthor('')
       setNewUrl('')
@@ -155,10 +173,14 @@ const handleDelete = async (blog) => {
       setBlogs(initialBlogs)
 
       // Display delete confirm message to user
-      setDisplayMessage(`Blog title "${blog.title}" removed`)
+      const msgToDisplay = `Blog title "${blog.title}" removed`
+      // content to display, time in sec to display
+      dispatch(setClearNotification(msgToDisplay, 5, timeoutId))
+
+/*       setDisplayMessage(`Blog title "${blog.title}" removed`)
       setTimeout(() => {
         setDisplayMessage('')
-      }, 5000)
+      }, 5000) */
     } catch{
       console.log('handleDelete catch')
     }
@@ -217,8 +239,9 @@ const handleLikeBlog = async (event) => {
       </header>
 
       {/* To display notification messages for 5sek. */}
-      <Notification message={displayMessage} />
-
+      <Notification />
+      {/* <Notification message={displayMessage} />
+ */}
 
       {/* Main content section - login, blogs */}
       {user === null ?

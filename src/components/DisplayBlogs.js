@@ -25,7 +25,7 @@ const DisplayBlogs = (props) => {
   
       <tbody>
         {props.blogs.map(blog => 
-          <tr key={blog.title}>
+          <tr key={blog.id}>
             <td>{blog.title}</td>
             <td>{blog.author}</td>
             <td>{blog.url}</td>

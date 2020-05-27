@@ -92,6 +92,34 @@ npm install eslint-plugin-cypress --save-dev
 Testi, joka varmistaa, että kirjaantunut käyttäjä pystyy luomaan blogin.  
 
 
+Blogilistan laajennus. Otetaan käyttöön mm. Redux, React-router ja tyylejä.  
+
+7.9: redux, step1  - git branch part7-09  
+Asennettu Redux  
+npm install redux --save  
+
+Asennettu react-redux. Hyödynnetään <Provider /> komponenttia välittämään  
+redux-storen eri komponenteille  
+npm install --save react-redux  
+
+Asennettu Redux DevTools, jonka avulla Redux-storen tilaa ja sitä muuttavia  
+actioneja on mahdollisuus seurata selaimen konsolista.  
+npm install --save-dev redux-devtools-extension  
+
+Asennettu redux-thunk -kirjasto, joka mahdollistaa asynkronisten actionien luomisen.  
+npm install --save redux-thunk  
+
+Luotu  
+/reducers -hakemisto
+store.js 
+
+Notification käyttää Reduxia  
+
+7.10: redux, step2  
+ToDo
+siirrä myös handlerit komponenttien sisälle.  
+
+
 
 
 
