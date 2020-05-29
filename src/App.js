@@ -18,7 +18,7 @@ import blogServices from './services/blogs'
 
 // Reducers
 import { setClearNotification} from './reducers/notificationReducer'
-
+import { initializeBlogs } from './reducers/blogsReducer'
 
 const App = () => {
 
@@ -32,10 +32,10 @@ const App = () => {
 
   //const [displayMessage, setDisplayMessage] = useState('')
 
-   // useState for create new blog
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newUrl, setNewUrl] = useState('')
+  // useState for create new blog
+  // const [newTitle, setNewTitle] = useState('')
+  // const [newAuthor, setNewAuthor] = useState('')
+  // const [newUrl, setNewUrl] = useState('')
   const [createNewBlogVisible, setCreateNewBlogVisible] = useState(false)
 
   const [viewBlogDetails, setViewBlogDetails] = useState(null)
@@ -51,11 +51,13 @@ const App = () => {
       // Set token to blogService-token variable for backend communication purpose
       blogServices.setToken(user.token)
 
-      blogServices.getAll()
+      dispatch(initializeBlogs())
+
+/*       blogServices.getAll()
         .then(blogs => setBlogs( blogs )
-      )  
+      )   */
     } 
-  }, [])
+  }, [dispatch])
 
 
   // Event handler for login button
@@ -103,7 +105,7 @@ const App = () => {
 
 // Event handler for creat new blog button
 // creates new blog to backend
-const handleCreateNew = async (event) => {
+/* const handleCreateNew = async (event) => {
   event.preventDefault()
   const newBlog = {
     "title" : newTitle, 
@@ -125,41 +127,37 @@ const handleCreateNew = async (event) => {
       // content to display, time in sec to display
       dispatch(setClearNotification(msgToDisplay, 5, timeoutId))
 
-/*       setDisplayMessage(`A new blog ${newTitle} by ${newAuthor} added`)
-      setTimeout(() => {
-        setDisplayMessage('')
-      }, 5000) */
       setNewTitle('')
       setNewAuthor('')
       setNewUrl('')
   } catch {
       console.log('handleCreateNew catch')
   }
-}
+} */
 
 // Event handler for "cancel and close" new blog button
 const handleCancelNewBlog = (event) => {
     event.preventDefault()
-    setNewTitle('')
-    setNewAuthor('')
-    setNewUrl('')
+    //setNewTitle('')
+    //setNewAuthor('')
+    //setNewUrl('')
     setCreateNewBlogVisible(false)
 }
 
 // Event handler for inputing blog title.
-const handleNewTitleInput = (event) => {
+/* const handleNewTitleInput = (event) => {
     setNewTitle(event.target.value)  
-}
+} */
 
 // Event handler for inputing blog author.
-const handleNewAuthorInput = (event) => {
+/* const handleNewAuthorInput = (event) => {
     setNewAuthor(event.target.value)  
-}
+} */
 
 // Event handler for inputing blog url.
-const handleNewUrlInput = (event) => {
+/* const handleNewUrlInput = (event) => {
     setNewUrl(event.target.value)  
-}
+} */
 
 // Event handler for delete blog button
 const handleDelete = async (blog) => {
@@ -258,14 +256,14 @@ const handleLikeBlog = async (event) => {
         // Display createNewBlog and allBlogs if user is logged in
         <div>
           <CreateNew 
-            handleCreateNew={handleCreateNew}
+            // handleCreateNew={handleCreateNew}
             handleCancelNewBlog={handleCancelNewBlog}
-            newTitle={newTitle} 
+            /* newTitle={newTitle} 
             handleNewTitleInput={handleNewTitleInput}
             newAuthor={newAuthor} 
             handleNewAuthorInput={handleNewAuthorInput}
             newUrl={newUrl}
-            handleNewUrlInput={handleNewUrlInput}
+            handleNewUrlInput={handleNewUrlInput} */
             createNewBlogVisible={createNewBlogVisible}
             setCreateNewBlogVisible={setCreateNewBlogVisible}
             />

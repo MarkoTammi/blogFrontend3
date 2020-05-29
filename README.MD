@@ -92,7 +92,8 @@ npm install eslint-plugin-cypress --save-dev
 Testi, joka varmistaa, että kirjaantunut käyttäjä pystyy luomaan blogin.  
 
 
-Blogilistan laajennus. Otetaan käyttöön mm. Redux, React-router ja tyylejä.  
+### Blogilistan laajennus ja refaktorointi.  
+Otetaan käyttöön mm. Redux, React-router ja tyylejä.  
 
 7.9: redux, step1  - git branch part7-09  
 Asennettu Redux  
@@ -110,15 +111,18 @@ Asennettu redux-thunk -kirjasto, joka mahdollistaa asynkronisten actionien luomi
 npm install --save redux-thunk  
 
 Luotu  
-/reducers -hakemisto
+/reducers -hakemisto  
 store.js 
 
 Notification käyttää Reduxia  
 
 7.10: redux, step2  
-ToDo
-siirrä myös handlerit komponenttien sisälle.  
+Sovellus näyttää kaikki blogit redux'sta.  
+Uuden blogin lisäys ok.  
 
+7.11: redux, step3  
+TODO -  blogien "liketys" ja poisto toimivat
+  
 
 
 

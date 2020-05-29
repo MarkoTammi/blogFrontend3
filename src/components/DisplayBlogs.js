@@ -1,14 +1,25 @@
 
 // Component to display all blogs
 
-import React from 'react'
+import React, { useEffect } from 'react'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { initializeBlogs } from '../reducers/blogsReducer'
 
 
 const DisplayBlogs = (props) => {
+  
+  const dispatch = useDispatch()
 
+/*   useEffect(() => {
+    dispatch(initializeBlogs())
+  },[dispatch]) */
+
+  const blogs = useSelector(state => state.blogs)
   // Sort blogs by "likes". Most likes is the 1st.
-  props.blogs.sort((a, b) => b.likes - a.likes)
+  blogs.sort((a, b) => b.likes - a.likes)
 
+  console.log('DisplayBlogs', blogs)
   return (
 
     <table className="table table-hover mt-5">
@@ -24,7 +35,7 @@ const DisplayBlogs = (props) => {
       </thead>
   
       <tbody>
-        {props.blogs.map(blog => 
+        {blogs.map(blog => 
           <tr key={blog.id}>
             <td>{blog.title}</td>
             <td>{blog.author}</td>
