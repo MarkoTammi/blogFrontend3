@@ -39,9 +39,11 @@ export const initializeBlogs = () => {
 
 
 // Create new blog
-export const createNewBlog = data => {
+export const createNewBlog = (data, user) => {
     return async dispatch => {
         const newBlog = await blogsService.createNew(data)
+        console.log('newBlog', newBlog)
+        console.log('DATA ODOTTAA name JA USERNAME - kun login on valmis')
         dispatch(
             {
                 type: 'CREATE_NEW',
@@ -52,7 +54,11 @@ export const createNewBlog = data => {
                         url: newBlog.url,
                         id: newBlog.id,
                         likes: 0,
-                        user: newBlog.user
+                        user: {
+                            id: newBlog.user,
+                            name: user.name,
+                            username: user.username
+                        }
                     }
             }
         )

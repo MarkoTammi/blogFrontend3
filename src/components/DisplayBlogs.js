@@ -19,7 +19,6 @@ const DisplayBlogs = (props) => {
   // Sort blogs by "likes". Most likes is the 1st.
   blogs.sort((a, b) => b.likes - a.likes)
 
-  console.log('DisplayBlogs', blogs)
   return (
 
     <table className="table table-hover mt-5">
@@ -29,6 +28,7 @@ const DisplayBlogs = (props) => {
           <th scope="col">Author</th>
           <th scope="col">Url</th>
           <th scope="col">Likes</th>
+          {/* <th scope="col">Added</th> */}
           <th scope="col">View details</th>
           <th scope="col">Delete blog</th>
         </tr>
@@ -41,6 +41,7 @@ const DisplayBlogs = (props) => {
             <td>{blog.author}</td>
             <td>{blog.url}</td>
             <td>{blog.likes}</td>
+            {/* <td>{blog.user.username}</td> */}
 
             {/* Display blog details if "view" button is pressed. */}
             {blog.id === props.viewBlogDetails ?

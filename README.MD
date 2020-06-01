@@ -118,11 +118,13 @@ Notification käyttää Reduxia
 
 7.10: redux, step2  
 Sovellus näyttää kaikki blogit redux'sta.  
-Uuden blogin lisäys ok.  
+Uuden blogin lisäys ok.    
 
 7.11: redux, step3  
 TODO -  blogien "liketys" ja poisto toimivat
-  
+
+
+BUGI : delete poistaa blogin Mongosta mutta renderöi  DisplayBlogs  
 
 
 

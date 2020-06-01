@@ -32,7 +32,7 @@ const CreateNewBlog = (props) => {
 
         try {
             // Save new blog to Mongo and state
-            dispatch(createNewBlog(newBlog))
+            dispatch(createNewBlog(newBlog, props.user))
 
             // Display name of created anecdote in notification field
             const msgToDisplay = 'You create "' + newBlog.title + '" blog'

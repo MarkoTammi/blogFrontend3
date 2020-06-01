@@ -258,6 +258,7 @@ const handleLikeBlog = async (event) => {
           <CreateNew 
             // handleCreateNew={handleCreateNew}
             handleCancelNewBlog={handleCancelNewBlog}
+            user={user}
             /* newTitle={newTitle} 
             handleNewTitleInput={handleNewTitleInput}
             newAuthor={newAuthor} 
