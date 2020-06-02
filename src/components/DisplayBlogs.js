@@ -13,7 +13,7 @@ import { actionSetClearNotification } from '../reducers/notificationReducer'
 const DisplayBlogs = (props) => {
   
   const dispatch = useDispatch()
-
+  const loggedUser = useSelector(state => state.user)
 
   // Handler for blog Delete button
   const handleDeleteButton = (blog) => {
@@ -33,7 +33,7 @@ const DisplayBlogs = (props) => {
     // Handler for blog Like button
     const handleLikeButton = (blog) => {
         try {
-          dispatch(actionBlogVoted(blog, props.user))
+          dispatch(actionBlogVoted(blog, loggedUser))
           // Display delete confirm message to user
           const msgToDisplay = `You voted blog : "${blog.title}"`
           // Content to display, time in sec to display
@@ -80,7 +80,7 @@ const DisplayBlogs = (props) => {
               }
 
             {/* Delete is allowed only to user who created the blog */}
-            {blog.user.username === props.user.username ? 
+            {blog.user.username === loggedUser.username ? 
               <td><button onClick={ () => handleDeleteButton(blog)}  type="submit" className="btn btn-outline-info btn-sm">Delete</button></td>
               : <td></td>
               }

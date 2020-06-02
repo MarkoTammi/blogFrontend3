@@ -124,7 +124,9 @@ Uuden blogin lisäys ok.
 Blogien "liketys" ok.  
 Blogin poisto ok.  
 
-
+7.12: redux, step4  
+UNDER CODING: user >> reduxiin   
+NEXT : LOGIN
 
 
 

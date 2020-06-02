@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { timeoutId } from './global'
 
 // Components
@@ -19,26 +19,26 @@ import blogServices from './services/blogs'
 // Reducers
 import { actionSetClearNotification} from './reducers/notificationReducer'
 import { actionInitializeBlogs } from './reducers/blogsReducer'
+import { actionSetUser, actionClearUser } from './reducers/userReducer'
 
 const App = () => {
 
   const dispatch = useDispatch()
 
-  const [blogs, setBlogs] = useState([])
+  //const [blogs, setBlogs] = useState([])
 
   const [username, setUsername] = useState('')   
   const [password, setPassword] = useState('') 
-  const [user, setUser] = useState(null)
+  //const [user, setUser] = useState(null)
+  const [createNewBlogVisible, setCreateNewBlogVisible] = useState(false)
+  const [viewBlogDetails, setViewBlogDetails] = useState(null)
 
   //const [displayMessage, setDisplayMessage] = useState('')
-
   // useState for create new blog
   // const [newTitle, setNewTitle] = useState('')
   // const [newAuthor, setNewAuthor] = useState('')
   // const [newUrl, setNewUrl] = useState('')
-  const [createNewBlogVisible, setCreateNewBlogVisible] = useState(false)
 
-  const [viewBlogDetails, setViewBlogDetails] = useState(null)
 
   // useEffect to fetch user-data from browser localStorage if exist. 
   // Logout removes user data from local storage
@@ -46,19 +46,23 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      setUser(user)
+      dispatch(actionSetUser(user))
+      //setUser(user)
 
       // Set token to blogService-token variable for backend communication purpose
       blogServices.setToken(user.token)
 
       dispatch(actionInitializeBlogs())
 
-/*       blogServices.getAll()
-        .then(blogs => setBlogs( blogs )
-      )   */
+      // Display welcome message
+      const msgToDisplay = `Nice to see you again ${user.username}!`
+      // content to display, time in sec to display
+      dispatch(actionSetClearNotification(msgToDisplay, 5, timeoutId))
     } 
   }, [dispatch])
 
+  const user = useSelector(state => state.user)
+  console.log('App - user', user)
 
   // Event handler for login button
   const handleLogin = async (event) => {    
@@ -66,11 +70,12 @@ const App = () => {
     try {
       //console.log('logging in with', username, password)  
       const user = await loginServices.login( { username, password } )
-      setUser(user)
+      dispatch(actionSetUser(user))
       window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
 
       blogServices.setToken(user.token)
-
+      // user - token, username, name
+      console.log('handleLogin - user', user)
       // Username and password are cleared because they and token are saved to user object.
       setUsername('')
       setPassword('')
@@ -79,8 +84,8 @@ const App = () => {
       setViewBlogDetails(null)
 
       // All blogs are fetched from backend after succesfull login
-      const initialBlogs = await blogServices.getAll()
-      setBlogs(initialBlogs)
+      //const initialBlogs = await blogServices.getAll()
+      dispatch(actionInitializeBlogs())
 
     } catch {
       // Display login failed message
@@ -98,10 +103,11 @@ const App = () => {
   }
 
   // Event handler for logout button
-  const handleLogout = () => {
+/*   const handleLogout = () => {
     window.localStorage.removeItem('loggedBlogAppUser')
-    setUser(null)
-  }
+    dispatch(actionClearUser())
+    //setUser(null)
+  } */
 
 // Event handler for "cancel and close" new blog button
 const handleCancelNewBlog = (event) => {
@@ -134,7 +140,7 @@ const handleCloseBlogDetails = () => {
             <h3>Great blogs</h3>
           </div>
           <div className="col-6">
-            {user !== null && <Logout user={user} handleLogout={handleLogout}/>}
+            {user !== '' && <Logout />}
           </div>
         </div>
       </div>
@@ -144,7 +150,7 @@ const handleCloseBlogDetails = () => {
       <Notification />
 
       {/* Main content section - login, blogs */}
-      {user === null ?
+      { user === '' ?
 
         // Display login-form if user is not logged in
         <Login 
@@ -160,7 +166,7 @@ const handleCloseBlogDetails = () => {
           <CreateNew 
             // handleCreateNew={handleCreateNew}
             handleCancelNewBlog={handleCancelNewBlog}
-            user={user}
+            //user={user}
             /* newTitle={newTitle} 
             handleNewTitleInput={handleNewTitleInput}
             newAuthor={newAuthor} 
@@ -172,9 +178,9 @@ const handleCloseBlogDetails = () => {
             />
 
           <DisplayBlogs 
-            blogs={blogs}
+            //blogs={blogs}
             // handleDelete={handleDelete}
-            user={user}
+            //user={user}
             viewBlogDetails={viewBlogDetails}
             handleViewBlogDetails={handleViewBlogDetails}
             handleCloseBlogDetails={handleCloseBlogDetails}

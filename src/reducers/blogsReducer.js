@@ -28,6 +28,9 @@ const blogsReducer = (state = [], action) => {
             const id2 = action.data
             const blogsRemain = state.filter(n => n.id !== id2)
             return state = blogsRemain
+        // Clear blogs store
+        case 'CLEAR_BLOGS_STORE':
+            return state = []
         default:
             return state
     }
@@ -112,6 +115,19 @@ export const actionDeleteBlog = (data) => {
             {
                 type: 'DELETE_BLOG',
                 data: data.id
+            }
+        )
+    }
+}
+
+
+// Action - Clear blogs store
+export const actionClearBlogsStore = () => {
+    console.log('actionClearBlogsStore')
+    return async dispatch => {
+        dispatch(
+            {
+                type: 'CLEAR_BLOGS_STORE'
             }
         )
     }

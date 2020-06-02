@@ -3,7 +3,7 @@
 // Component to create new blog
 
 import React, {} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { timeoutId } from '../global'
 
 import { actionSetClearNotification } from '../reducers/notificationReducer'
@@ -13,7 +13,7 @@ import { actionCreateNewBlog } from '../reducers/blogsReducer'
 const CreateNewBlog = (props) => {
 
     const dispatch = useDispatch()
-
+    const loggedUser = useSelector(state => state.user)
 
       // Event handler for create button
     const handleCreateBlogButton = async (event) => {
@@ -32,7 +32,7 @@ const CreateNewBlog = (props) => {
 
         try {
             // Save new blog to Mongo and state
-            dispatch(actionCreateNewBlog(newBlog, props.user))
+            dispatch(actionCreateNewBlog(newBlog, loggedUser))
 
             // Display name of created anecdote in notification field
             const msgToDisplay = 'You create "' + newBlog.title + '" blog'
