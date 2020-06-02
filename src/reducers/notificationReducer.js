@@ -37,7 +37,7 @@ const clearNotification = () => {
 
 // Function to display notification if new blog is created or existing voted.
 // timeoutId is global variable defined at global.js.
-export const setClearNotification = (msgToDisplay, timeInSec, timeoutId) => {
+export const actionSetClearNotification = (msgToDisplay, timeInSec, timeoutId) => {
 
   return (dispatch, getState) => {
 

@@ -6,8 +6,8 @@ import React, {} from 'react'
 import { useDispatch } from 'react-redux'
 import { timeoutId } from '../global'
 
-import { setClearNotification } from '../reducers/notificationReducer'
-import { createNewBlog } from '../reducers/blogsReducer'
+import { actionSetClearNotification } from '../reducers/notificationReducer'
+import { actionCreateNewBlog } from '../reducers/blogsReducer'
 
 
 const CreateNewBlog = (props) => {
@@ -32,12 +32,12 @@ const CreateNewBlog = (props) => {
 
         try {
             // Save new blog to Mongo and state
-            dispatch(createNewBlog(newBlog, props.user))
+            dispatch(actionCreateNewBlog(newBlog, props.user))
 
             // Display name of created anecdote in notification field
             const msgToDisplay = 'You create "' + newBlog.title + '" blog'
             // content to display, time in sec to display
-            dispatch(setClearNotification(msgToDisplay, 5, timeoutId))  
+            dispatch(actionSetClearNotification(msgToDisplay, 5, timeoutId))  
         } catch {
             console.log('handleCreateBlogButton catch')
         }

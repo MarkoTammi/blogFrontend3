@@ -17,8 +17,8 @@ import loginServices from './services/login'
 import blogServices from './services/blogs'
 
 // Reducers
-import { setClearNotification} from './reducers/notificationReducer'
-import { initializeBlogs } from './reducers/blogsReducer'
+import { actionSetClearNotification} from './reducers/notificationReducer'
+import { actionInitializeBlogs } from './reducers/blogsReducer'
 
 const App = () => {
 
@@ -51,7 +51,7 @@ const App = () => {
       // Set token to blogService-token variable for backend communication purpose
       blogServices.setToken(user.token)
 
-      dispatch(initializeBlogs())
+      dispatch(actionInitializeBlogs())
 
 /*       blogServices.getAll()
         .then(blogs => setBlogs( blogs )
@@ -86,7 +86,7 @@ const App = () => {
       // Display login failed message
       const msgToDisplay = 'Wrong password or username'
       // content to display, time in sec to display
-      dispatch(setClearNotification(msgToDisplay, 5, timeoutId))
+      dispatch(actionSetClearNotification(msgToDisplay, 5, timeoutId))
 
 /*       setDisplayMessage('Wrong password or username')
       setTimeout(() => {
@@ -103,38 +103,6 @@ const App = () => {
     setUser(null)
   }
 
-// Event handler for creat new blog button
-// creates new blog to backend
-/* const handleCreateNew = async (event) => {
-  event.preventDefault()
-  const newBlog = {
-    "title" : newTitle, 
-    "author" : newAuthor, 
-    "url" :newUrl,
-    "likes" : 0
-  }
-  try {
-
-      // const newBlg = await blogServices.createNew( newBlog )  
-      //setBlogs(blogs.concat(newBlg))
-
-      await blogServices.createNew( newBlog )
-      const initialBlogs = await blogServices.getAll()
-      setBlogs(initialBlogs)
-
-      // Display name of created anecdote in notification field
-      const msgToDisplay = `A new blog ${newTitle} by ${newAuthor} added`
-      // content to display, time in sec to display
-      dispatch(setClearNotification(msgToDisplay, 5, timeoutId))
-
-      setNewTitle('')
-      setNewAuthor('')
-      setNewUrl('')
-  } catch {
-      console.log('handleCreateNew catch')
-  }
-} */
-
 // Event handler for "cancel and close" new blog button
 const handleCancelNewBlog = (event) => {
     event.preventDefault()
@@ -142,47 +110,6 @@ const handleCancelNewBlog = (event) => {
     //setNewAuthor('')
     //setNewUrl('')
     setCreateNewBlogVisible(false)
-}
-
-// Event handler for inputing blog title.
-/* const handleNewTitleInput = (event) => {
-    setNewTitle(event.target.value)  
-} */
-
-// Event handler for inputing blog author.
-/* const handleNewAuthorInput = (event) => {
-    setNewAuthor(event.target.value)  
-} */
-
-// Event handler for inputing blog url.
-/* const handleNewUrlInput = (event) => {
-    setNewUrl(event.target.value)  
-} */
-
-// Event handler for delete blog button
-const handleDelete = async (blog) => {
-
-  if (window.confirm(`Delete blog "${blog.title}" ?`)) {
-    try {
-      await blogServices.deleteBlog( blog.id )
-
-      // Update all blogs table
-      const initialBlogs = await blogServices.getAll()
-      setBlogs(initialBlogs)
-
-      // Display delete confirm message to user
-      const msgToDisplay = `Blog title "${blog.title}" removed`
-      // content to display, time in sec to display
-      dispatch(setClearNotification(msgToDisplay, 5, timeoutId))
-
-/*       setDisplayMessage(`Blog title "${blog.title}" removed`)
-      setTimeout(() => {
-        setDisplayMessage('')
-      }, 5000) */
-    } catch{
-      console.log('handleDelete catch')
-    }
-  }
 }
 
 // Event handler for view blog details button
@@ -195,29 +122,6 @@ const handleViewBlogDetails = (event) => {
 const handleCloseBlogDetails = () => {
   setViewBlogDetails(null)
 }
-
-// Event handler for like blog button
-const handleLikeBlog = async (event) => {
-  //event.preventDefault()
-  event.likes = event.likes + 1
-  const updateBlog = {
-    "title" : event.title, 
-    "author" : event.author, 
-    "url" : event.url,
-    "likes" : event.likes,
-    "user" : event.user.id,
-    "id" : event.id
-  }
-  try {
-    await blogServices.updateBlog( updateBlog )
-
-    const initialBlogs = await blogServices.getAll()
-    setBlogs(initialBlogs)
-  } catch {
-    console.log('handleLikeBlog catch')
-  }
-}
-
 
   return (
     <div>
@@ -236,10 +140,8 @@ const handleLikeBlog = async (event) => {
       </div>
       </header>
 
-      {/* To display notification messages for 5sek. */}
+      {/* To display notification messages */}
       <Notification />
-      {/* <Notification message={displayMessage} />
- */}
 
       {/* Main content section - login, blogs */}
       {user === null ?
@@ -271,12 +173,12 @@ const handleLikeBlog = async (event) => {
 
           <DisplayBlogs 
             blogs={blogs}
-            handleDelete={handleDelete}
+            // handleDelete={handleDelete}
             user={user}
             viewBlogDetails={viewBlogDetails}
             handleViewBlogDetails={handleViewBlogDetails}
             handleCloseBlogDetails={handleCloseBlogDetails}
-            handleLikeBlog={handleLikeBlog}
+            // handleLikeBlog={handleLikeBlog}
             />
         </div>
       }

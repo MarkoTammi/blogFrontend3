@@ -120,11 +120,11 @@ Notification käyttää Reduxia
 Sovellus näyttää kaikki blogit redux'sta.  
 Uuden blogin lisäys ok.    
 
-7.11: redux, step3  
-TODO -  blogien "liketys" ja poisto toimivat
+7.11: redux, step3  - git branch part7-11  
+Blogien "liketys" ok.  
+Blogin poisto ok.  
 
 
-BUGI : delete poistaa blogin Mongosta mutta renderöi  DisplayBlogs  
 
 
 
