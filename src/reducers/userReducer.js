@@ -6,8 +6,8 @@
 import userService from '../services/login'
 
 const userReducer = (state = '', action) => {
-    console.log('userReducer state : ', state)
-    console.log('userReducer action : ', action)
+    //console.log('userReducer state : ', state)
+    //console.log('userReducer action : ', action)
 
     switch(action.type) {
         // Login

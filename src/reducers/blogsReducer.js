@@ -108,7 +108,7 @@ export const actionBlogVoted = (data, user) => {
 
 // Action - Delete blog
 export const actionDeleteBlog = (data) => {
-    console.log('actionDeleteBlog',data.id)
+    //console.log('actionDeleteBlog',data.id)
     return async dispatch => {
         await blogsService.deleteBlog(data.id)
         dispatch(

@@ -124,8 +124,13 @@ Uuden blogin lisäys ok.
 Blogien "liketys" ok.  
 Blogin poisto ok.  
 
-7.12: redux, step4  
+7.12: redux, step4  - git branch part7-12  
 Kirjautunut käyttäjä Storeen  
+Siivottu koodia mutta jätetty muutama tila ja handler Appiin   
+
+7.13: käyttäjien näkymä  
+toDo  
+
 
 
 
