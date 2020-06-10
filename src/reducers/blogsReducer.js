@@ -7,8 +7,8 @@ import blogsService from '../services/blogs'
 
 
 const blogsReducer = (state = [], action) => {
-    console.log('blogsReducer state : ', state)
-    console.log('blogsReducer action : ', action)
+    //console.log('blogsReducer state : ', state)
+    //console.log('blogsReducer action : ', action)
 
     switch(action.type) {
         // Initialize blogs store

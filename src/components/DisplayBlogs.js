@@ -15,6 +15,11 @@ const DisplayBlogs = (props) => {
   const dispatch = useDispatch()
   const loggedUser = useSelector(state => state.user)
 
+  const blogs = useSelector(state => state.blogs)
+  // Sort blogs by "likes". Most likes is the 1st.
+  blogs.sort((a, b) => b.likes - a.likes)
+  
+
   // Handler for blog Delete button
   const handleDeleteButton = (blog) => {
     if (window.confirm(`Delete blog "${blog.title}" ?`)) {
@@ -42,11 +47,7 @@ const DisplayBlogs = (props) => {
           console.log('handleLikeButton catch')
         }
     }
-    
-
-  const blogs = useSelector(state => state.blogs)
-  // Sort blogs by "likes". Most likes is the 1st.
-  blogs.sort((a, b) => b.likes - a.likes)
+  
 
   return (
 

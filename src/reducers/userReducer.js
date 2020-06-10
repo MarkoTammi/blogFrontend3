@@ -5,8 +5,6 @@
 
 import userService from '../services/login'
 
-import { actionClearBlogsStore } from '../reducers/blogsReducer'
-
 const userReducer = (state = '', action) => {
     console.log('userReducer state : ', state)
     console.log('userReducer action : ', action)
@@ -27,7 +25,7 @@ export default userReducer
 // ACTIONS for blogs
 
 export const actionSetUser = user => {
-    console.log('actionSetUser', user)
+    //console.log('actionSetUser', user)
     return dispatch => {
         dispatch(
             {
@@ -39,7 +37,7 @@ export const actionSetUser = user => {
 }
 
 export const actionClearUser = () => {
-    console.log('actionClearUser')
+    //console.log('actionClearUser')
     return dispatch => {
         dispatch(
             {
@@ -50,15 +48,17 @@ export const actionClearUser = () => {
 }
 
 export const actionLogin = (user) => {
-    console.log('actionLogin', user)
+    //console.log('actionLogin', user)
     return async dispatch => {
         const loggedUser = await userService.login(user)
         dispatch(actionSetUser(loggedUser))
+        // Save user to local storage
+        window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(loggedUser))
     }
 }
 
 export const actionLogout = () => {
-    console.log('actionLogout')
+    //console.log('actionLogout')
     return async dispatch => {
         dispatch(actionClearUser())
     }

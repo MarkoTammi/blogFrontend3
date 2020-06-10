@@ -27,8 +27,8 @@ const App = () => {
 
   //const [blogs, setBlogs] = useState([])
 
-  const [username, setUsername] = useState('')   
-  const [password, setPassword] = useState('') 
+  //const [username, setUsername] = useState('')   
+  //const [password, setPassword] = useState('') 
   //const [user, setUser] = useState(null)
   const [createNewBlogVisible, setCreateNewBlogVisible] = useState(false)
   const [viewBlogDetails, setViewBlogDetails] = useState(null)
@@ -65,7 +65,7 @@ const App = () => {
   console.log('App - user', user)
 
   // Event handler for login button
-  const handleLogin = async (event) => {    
+/*   const handleLogin = async (event) => {    
     event.preventDefault()
     try {
       //console.log('logging in with', username, password)  
@@ -96,11 +96,11 @@ const App = () => {
 /*       setDisplayMessage('Wrong password or username')
       setTimeout(() => {
         setDisplayMessage('')
-      }, 5000) */
+      }, 5000)
       setUsername('')
       setPassword('')
     }
-  }
+  } */
 
   // Event handler for logout button
 /*   const handleLogout = () => {
@@ -154,12 +154,13 @@ const handleCloseBlogDetails = () => {
 
         // Display login-form if user is not logged in
         <Login 
-          handleLogin={handleLogin}
+/*           handleLogin={handleLogin}
           username={username}
           setUsername={setUsername}
           password={password}
-          setPassword={setPassword}
+          setPassword={setPassword} */
           /> :
+          
         
         // Display createNewBlog and allBlogs if user is logged in
         <div>

@@ -15,14 +15,17 @@ const Logout = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
 
+    // Handler for logout button
     const handleLogout = () => {
         //console.log('handleLogout')
         dispatch(actionLogout())
+        // Remove user from local storage
         window.localStorage.removeItem('loggedBlogAppUser')
+        // Clear all blogs from store
         dispatch(actionClearBlogsStore())
 
         // Display exit message
-        const msgToDisplay = 'Googbye'
+        const msgToDisplay = 'Googbye ' + user.username
         // content to display, time in sec to display
         dispatch(actionSetClearNotification(msgToDisplay, 5, timeoutId))
     }

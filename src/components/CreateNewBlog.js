@@ -12,18 +12,20 @@ import { actionCreateNewBlog } from '../reducers/blogsReducer'
 
 const CreateNewBlog = (props) => {
 
+    const user = useSelector(state => state.user)
+    console.log('Comp CreateNewBlog - user', user)
     const dispatch = useDispatch()
-    const loggedUser = useSelector(state => state.user)
 
       // Event handler for create button
     const handleCreateBlogButton = async (event) => {
         event.preventDefault()
         console.log('handleCreateBlogButton')
+        
         const newBlog = {
             title: event.target.title.value,
             author: event.target.author.value,
             url: event.target.url.value,
-            user: props.user
+            user: user
         }
         event.target.title.value = ''
         event.target.author.value = ''
@@ -32,7 +34,7 @@ const CreateNewBlog = (props) => {
 
         try {
             // Save new blog to Mongo and state
-            dispatch(actionCreateNewBlog(newBlog, loggedUser))
+            dispatch(actionCreateNewBlog(newBlog, user))
 
             // Display name of created anecdote in notification field
             const msgToDisplay = 'You create "' + newBlog.title + '" blog'

@@ -125,8 +125,9 @@ Blogien "liketys" ok.
 Blogin poisto ok.  
 
 7.12: redux, step4  
-UNDER CODING: user >> reduxiin   
-NEXT : LOGIN
+Kirjautunut käyttäjä Storeen  
+
+
 
 
 
